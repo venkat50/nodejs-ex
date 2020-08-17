@@ -35,20 +35,6 @@
                 },
                 "triggers": [
                     {
-                        "type": "ImageChange",
-                        "imageChangeParams": {
-                            "automatic": true,
-                            "containerNames": [
-                                "${APP}"
-                            ],
-                            "from": {
-                                "kind": "ImageStreamTag",
-                                "namespace": "nodejs-echo",
-                                "name": "${APP}:latest"
-                            }
-                        }
-                    },
-                    {
                         "type": "ConfigChange"
                     }
                 ],
@@ -70,7 +56,7 @@
                         "containers": [
                             {
                                 "name": "${APP}",
-                                "image": "docker-registry.default.svc:5000/nodejs-echo/nodejs-example@sha256:fb3842102d85408b61c13b847596f5947e867042dad92b97d83212bf81fb4c94",
+                                "image": "nginx:latest",
                                 "ports": [
                                     {
                                         "containerPort": 8080,
