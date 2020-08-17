@@ -98,15 +98,8 @@
                         "schedulerName": "default-scheduler"
                     }
                 }
-            },
-            "status": {
-                "latestVersion": 0,
-                "observedGeneration": 0,
-                "replicas": 0,
-                "updatedReplicas": 0,
-                "availableReplicas": 0,
-                "unavailableReplicas": 0
             }
+            
         },
         {
             "kind": "Service",
