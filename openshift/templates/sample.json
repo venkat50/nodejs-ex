@@ -2,7 +2,7 @@
     "kind": "Template",
     "apiVersion": "v1",
     "metadata": {
-        "name": "${APP}",
+        "name": "nodejs-example",
         "creationTimestamp": null
     },
     "objects": [
