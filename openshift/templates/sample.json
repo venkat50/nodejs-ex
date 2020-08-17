@@ -2,7 +2,7 @@
     "kind": "Template",
     "apiVersion": "template.openshift.io/v1",
     "metadata": {
-        "name": "nodejs-example",
+        "name": "sample",
         "creationTimestamp": null
     },
     "objects": [
@@ -10,17 +10,13 @@
             "kind": "DeploymentConfig",
             "apiVersion": "apps.openshift.io/v1",
             "metadata": {
-                "name": "nodejs-example",
-                "generation": 3,
+                "name": "${APP}",
                 "creationTimestamp": null,
                 "labels": {
-                    "app": "nodejs-example",
-                    "template": "nodejs-example"
+                    "app": "${APP}"
                 },
                 "annotations": {
                     "description": "Defines how to deploy the application server",
-                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps.openshift.io/v1\",\"kind\":\"DeploymentConfig\",\"metadata\":{\"annotations\":{\"description\":\"Defines how to deploy the application server\",\"kubernetes.io/change-cause\":\"oc apply --kubeconfig=config --filename=manifests.yaml --record=true\",\"template.alpha.openshift.io/wait-for-ready\":\"true\"},\"labels\":{\"app\":\"nodejs-example\",\"template\":\"nodejs-example\"},\"name\":\"nodejs-example\",\"namespace\":\"nodejs-echo\"},\"spec\":{\"replicas\":1,\"selector\":{\"name\":\"nodejs-example\"},\"strategy\":{\"type\":\"Rolling\"},\"template\":{\"metadata\":{\"labels\":{\"harness.io/release-name\":\"release-f4bcc50a-0b46-31a7-8caa-5cc7fd097298\",\"name\":\"nodejs-example\"},\"name\":\"nodejs-example\"},\"spec\":{\"containers\":[{\"env\":[],\"image\":\" \",\"livenessProbe\":{\"httpGet\":{\"path\":\"/\",\"port\":8080},\"initialDelaySeconds\":30,\"timeoutSeconds\":3},\"name\":\"nodejs-example\",\"ports\":[{\"containerPort\":8080}],\"readinessProbe\":{\"httpGet\":{\"path\":\"/\",\"port\":8080},\"initialDelaySeconds\":3,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"memory\":\"512Mi\"}}}]}},\"triggers\":[{\"imageChangeParams\":{\"automatic\":true,\"containerNames\":[\"nodejs-example\"],\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"nodejs-example:latest\"}},\"type\":\"ImageChange\"},{\"type\":\"ConfigChange\"}]}}\n",
-                    "kubernetes.io/change-cause": "oc apply --kubeconfig=config --filename=manifests.yaml --record=true",
                     "template.alpha.openshift.io/wait-for-ready": "true"
                 }
             },
@@ -43,14 +39,13 @@
                         "imageChangeParams": {
                             "automatic": true,
                             "containerNames": [
-                                "nodejs-example"
+                                "${APP}"
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "nodejs-echo",
-                                "name": "nodejs-example:latest"
-                            },
-                            "lastTriggeredImage": "docker-registry.default.svc:5000/nodejs-echo/nodejs-example@sha256:d47a629899bb09c761a48d33b1c877d3c6764643f506d98f5b5b2c12577e592e"
+                                "name": "${APP}:latest"
+                            }
                         }
                     },
                     {
@@ -61,22 +56,21 @@
                 "revisionHistoryLimit": 10,
                 "test": false,
                 "selector": {
-                    "name": "nodejs-example"
+                    "name": "${APP}"
                 },
                 "template": {
                     "metadata": {
-                        "name": "nodejs-example",
+                        "name": "${APP}",
                         "creationTimestamp": null,
                         "labels": {
-                            "harness.io/release-name": "release-f4bcc50a-0b46-31a7-8caa-5cc7fd097298",
-                            "name": "nodejs-example"
+                            "name": "${APP}"
                         }
                     },
                     "spec": {
                         "containers": [
                             {
-                                "name": "nodejs-example",
-                                "image": "docker-registry.default.svc:5000/nodejs-echo/nodejs-example@sha256:d47a629899bb09c761a48d33b1c877d3c6764643f506d98f5b5b2c12577e592e",
+                                "name": "${APP}",
+                                "image": "docker-registry.default.svc:5000/nodejs-echo/nodejs-example@sha256:fb3842102d85408b61c13b847596f5947e867042dad92b97d83212bf81fb4c94",
                                 "ports": [
                                     {
                                         "containerPort": 8080,
@@ -134,5 +128,12 @@
                 "unavailableReplicas": 0
             }
         }
+    ],
+    "parameters": [
+         {
+            "name": "APP",
+            "required": true
+         }
     ]
+
 }
