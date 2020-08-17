@@ -2,7 +2,7 @@
     "kind": "Template",
     "apiVersion": "template.openshift.io/v1",
     "metadata": {
-        "name": "sample",
+        "name": "nodejs-example",
         "creationTimestamp": null
     },
     "objects": [
